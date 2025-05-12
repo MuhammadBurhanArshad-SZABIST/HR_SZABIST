@@ -185,6 +185,14 @@ const apiData = [
         endPoint: '/employees-in-toronto',
         query: 'SELECT e.employee_id, e.first_name, e.last_name, j.job_title, l.city FROM employees e INNER JOIN jobs j ON e.job_id = j.job_id INNER JOIN departments d ON e.department_id = d.department_id JOIN locations l ON d.location_id = l.location_id WHERE l.city = \'Toronto\''
     },    
+    {
+        endPoint: '/countries',
+        query: 'SELECT * FROM countries'
+    },    
+    {
+        endPoint: '/employees',
+        query: 'SELECT * FROM employees'
+    },    
 ]
 
 apiData.forEach(api => {
@@ -192,7 +200,7 @@ apiData.forEach(api => {
         try{
             if(api.query) {
                 const result = await pool.query(api.query);
-                res.json(result)
+                res.json(result.rows)
             } else {
                 res.json('query not provided in an array');
             }
